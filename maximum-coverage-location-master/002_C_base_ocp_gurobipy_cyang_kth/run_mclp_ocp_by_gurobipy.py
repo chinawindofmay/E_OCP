@@ -82,7 +82,7 @@ import numpy as np
 
 
 
-def case_UniversityNC_all_xzq_no_distance_decay():
+def case_UniversityNC_all_xzq_no_distance_decay(BASE_ROOT):
     """
     全部区域，不考虑距离衰减，采用MCLP
     Returns:
@@ -95,8 +95,8 @@ def case_UniversityNC_all_xzq_no_distance_decay():
     # 第一步，准备demand_points
     # 读取摄像头信息
 
-    camera_monitor_info = np.load(r'D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\result_all_xzq\price_matrix_100.npz')['price_matrix_no_distance_reduce_more'].T
-    all_opt_providers_save_path = r'D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\result_all_xzq\all_xzq_gurobi_{0}.npz'.format(P_facilities)
+    camera_monitor_info = np.load(r'{0}\price_matrix_50.npz'.format(BASE_ROOT))['price_matrix_no_distance_reduce_more'].T
+    all_opt_providers_save_path = r'{0}\all_xzq_gurobi_{1}.npz'.format(BASE_ROOT,P_facilities)
 
     camera_monitor_info_mid = camera_monitor_info  # [0:2000,:]
     demand_points = np.arange(0, camera_monitor_info_mid.shape[0])  # 行 编号
@@ -114,7 +114,7 @@ def case_UniversityNC_all_xzq_no_distance_decay():
 
 
 
-def case_UniversityNC_part_roi_no_distance_decay():
+def case_UniversityNC_part_roi_no_distance_decay(BASE_ROOT):
     """
         部分的ROI区域，不考虑距离衰减，采用MCLP直接求解
         Returns:
@@ -127,8 +127,8 @@ def case_UniversityNC_part_roi_no_distance_decay():
     # 第一步，准备demand_points
     # 读取摄像头信息
 
-    camera_monitor_info = np.load(r'D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\result_part_roi\price_matrix_100.npz')['price_matrix_no_distance_reduce_more'].T
-    all_opt_providers_save_path = r'D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\result_part_roi\part_roi_gurobi_{0}.npz'.format(P_facilities)
+    camera_monitor_info = np.load(r'{0}\price_matrix_50.npz'.format(BASE_ROOT))['price_matrix_no_distance_reduce_more'].T
+    all_opt_providers_save_path = r'{0}\part_roi_gurobi_{1}.npz'.format(BASE_ROOT,P_facilities)
 
     camera_monitor_info_mid = camera_monitor_info  # [0:2000,:]
     demand_points = np.arange(0, camera_monitor_info_mid.shape[0])  # 行 编号
@@ -146,11 +146,12 @@ def case_UniversityNC_part_roi_no_distance_decay():
 
 if __name__=="__main__":
     # case_changzhou_xinbei()
-
+    BASE_ROOT=r'D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC'
+    BASE_ROOT=r'E:\002code_running\02GeoAI_Sub_Projects\E_OCP\maximum-coverage-location-master\002_data_OSG_NC'
     #all 两种方式
     # case_UniversityNC_all_xzq_with_distance_decay()
-    case_UniversityNC_all_xzq_no_distance_decay()
+    case_UniversityNC_all_xzq_no_distance_decay(BASE_ROOT)
 
     #part 两种方式
     # case_UniversityNC_part_roi_with_distance_decay()
-    case_UniversityNC_part_roi_no_distance_decay()
+    case_UniversityNC_part_roi_no_distance_decay(BASE_ROOT)

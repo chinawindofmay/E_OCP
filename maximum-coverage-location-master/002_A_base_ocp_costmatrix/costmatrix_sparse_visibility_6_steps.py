@@ -111,11 +111,12 @@ def step2_generate_every_point_visibility_shp(root_file_path, save_out_point_shp
         except Exception as e:
             print('Error:', e)
 
-"""
-原有增加到01intersect.shp中的代码
-后来韩佩佩重新写了，放到一个新的图层中，这样便于后期的可视化
-"""
+
 def step3_apppend_visi_shp_into_one_file_old(appeend_stand_shp):
+    """
+    原有增加到01intersect.shp中的代码
+    后来韩佩佩重新写了，放到一个新的图层中，这样便于后期的可视化
+    """
     print("追加开始！！！！！！！！！！！！！！！！")
     appeend_stand_shp = appeend_stand_shp
     intersect_test = os.path.join(os.path.dirname(appeend_stand_shp))
@@ -414,19 +415,19 @@ def entance(tower_points_shp, dem_raster, intersect_dir_path, xzq, GD_land_shp, 
 #             soft_price_matrix_save_file)
 #     print("success")
 
-def debugger_all_xzq():
+def debugger_all_xzq(BASE_ROOT):
     """
     全域，候选点数量258个，塔高5米，半径50米，网格尺寸5米；
     Returns:
     """
-    tower_points_shp = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\monitor_randpt.shp"
-    roi_land_shp = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\XZQ.shp"
-    dem_raster = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\elev_lid792_1m.tif"
-    xzq = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\XZQ.shp"
+    tower_points_shp = r"{0}\monitor_randpt.shp".format(BASE_ROOT)
+    roi_land_shp = r"{0}\XZQ.shp".format(BASE_ROOT)
+    dem_raster = r"{0}\elev_lid792_1m.tif".format(BASE_ROOT)
+    xzq = r"{0}\XZQ.shp".format(BASE_ROOT)
     TOWER_HEIGHT = 5
     RIDUS = 50
     FISHNET_CELL_SIZE = 5
-    out_path = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\result_all_xzq"
+    out_path = r"{0}\result_all_xzq".format(BASE_ROOT)
 
     if os.path.exists(out_path):
         pass
@@ -448,19 +449,19 @@ def debugger_all_xzq():
 
 
 
-def debugger_part_roi():
+def debugger_part_roi(BASE_ROOT):
     """
     ROI区域，候选点数量258个，塔高5米，半径50米，网格尺寸5米；
     Returns:
     """
-    tower_points_shp = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\monitor_randpt_mid.shp"
-    GD_land_shp = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\land.shp"
-    dem_raster = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\elev_lid792_1m.tif"
-    xzq = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\XZQ.shp"
+    tower_points_shp = r"{0}\monitor_randpt.shp".format(BASE_ROOT)
+    GD_land_shp = r"{0}\land.shp".format(BASE_ROOT)
+    dem_raster = r"{0}\elev_lid792_1m.tif".format(BASE_ROOT)
+    xzq = r"{0}\XZQ.shp".format(BASE_ROOT)
     TOWER_HEIGHT = 5
     RIDUS = 50
     FISHNET_CELL_SIZE = 5
-    out_path = r"D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC\result_part_roi"
+    out_path = r"{0}\result_part_roi".format(BASE_ROOT)
 
     if os.path.exists(out_path):
         pass
@@ -508,7 +509,8 @@ def batch_enter():
 
 
 if __name__ == "__main__":
-
+    BASE_ROOT=r'D:\022_common_code\001_research_code\E_OCP\maximum-coverage-location-master\002_data_OSG_NC'
+    BASE_ROOT=r'E:\002code_running\02GeoAI_Sub_Projects\E_OCP\maximum-coverage-location-master\002_data_OSG_NC'
     #----------------编码思路说明BEGIN：周鑫鑫  2023年7月13日20:33:36--------------------------------
     # intersect_shp的生成的步骤
     # 首先对候选点赋值塔高度，得到monitor_with_extra_height_shp点图层，会用到DEM，得到的是每个塔点位基座的海拔高度，增加KEY_ID字段；
@@ -526,10 +528,10 @@ if __name__ == "__main__":
     # ----------------编码思路说明END：周鑫鑫  2023年7月13日20:33:36--------------------------------
 
     # 生成全域的代价矩阵，不考虑ROI
-    debugger_all_xzq()
+    debugger_all_xzq(BASE_ROOT)
 
     # 生成ROI的代价矩阵，考虑ROI
-    # debugger_part_roi()
+    # debugger_part_roi(BASE_ROOT)
 
 
     # 给外面批量调用的；
